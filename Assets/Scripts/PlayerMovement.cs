@@ -23,11 +23,10 @@ public class PlayerMovement : MonoBehaviour {
 	void doMovement(float h, float v){
 		if (h != 0) {
 			rg.transform.Rotate (new Vector3(0,0,h*cp.turnRate));
-			Debug.Log (rg.rotation);
-
 		}
 		if (rg.velocity.magnitude < cp.maxSpeed) {
-			rg.velocity = new Vector2(rg.velocity.magnitude*Mathf.Cos(rg.rotation)*v,rg.velocity.magnitude*Mathf.Sin(rg.rotation)*v);
+			rg.AddForce (transform.right * v * cp.acceleration);
+			rg.velocity = new Vector2 (rg.velocity.magnitude * Mathf.Cos (rg.rotation * Mathf.PI / 180), rg.velocity.magnitude * Mathf.Cos (rg.rotation * Mathf.PI / 180));
 		}
 	}	
 }
