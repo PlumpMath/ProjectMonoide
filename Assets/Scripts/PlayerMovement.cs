@@ -9,10 +9,11 @@ public class PlayerMovement : MonoBehaviour {
 	void Start () {
 		rg = GetComponent<Rigidbody2D> ();	
 		cp = GetComponent<CarProperties> ();
+		rg.drag = cp.weight;	
 	}
 	
 	// Update is called once per frame
-	void Update () {
+	void FixedUpdate () {
 		float h = Input.GetAxis ("Horizontal");
 		float v = Input.GetAxis ("Vertical");
 		if (v != 0f || rg.velocity.magnitude !=0f) {
@@ -22,9 +23,11 @@ public class PlayerMovement : MonoBehaviour {
 	void doMovement(float h, float v){
 		if (h != 0) {
 			rg.transform.Rotate (new Vector3(0,0,h*cp.turnRate));
+			Debug.Log (rg.rotation);
+
 		}
 		if (rg.velocity.magnitude < cp.maxSpeed) {
-			rg.AddForce (transform.right*v);
+			rg.velocity = new Vector2(rg.velocity.magnitude*Mathf.Cos(rg.rotation)*v,rg.velocity.magnitude*Mathf.Sin(rg.rotation)*v);
 		}
 	}	
 }
