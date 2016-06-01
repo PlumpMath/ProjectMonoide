@@ -15,13 +15,16 @@ public class PlayerMovement : MonoBehaviour {
 	void Update () {
 		float h = Input.GetAxis ("Horizontal");
 		float v = Input.GetAxis ("Vertical");
-		if (v != 0f) {
+		if (v != 0f || rg.velocity.magnitude !=0f) {
 			doMovement (h, v);
 		}
 	}
 	void doMovement(float h, float v){
+		if (h != 0) {
+			rg.transform.Rotate (new Vector3(0,0,h*cp.turnRate));
+		}
 		if (rg.velocity.magnitude < cp.maxSpeed) {
-			rg.AddForce (transform);
+			rg.AddForce (transform.right*v);
 		}
 	}	
 }
