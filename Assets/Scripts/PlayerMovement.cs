@@ -16,7 +16,7 @@ public class PlayerMovement : MonoBehaviour {
 		float h = Input.GetAxis ("Horizontal");
 		float v = Input.GetAxis ("Vertical");
 		if (v != 0f || rg.velocity.magnitude !=0f) {
-			doMovement (h, v);
+			doMovement (-h, v);
 		}
 	}
 	void doMovement(float h, float v){
